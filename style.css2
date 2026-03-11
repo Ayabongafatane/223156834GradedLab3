@@ -1,0 +1,9 @@
+#removed{
+    color: red;
+    font-weight: bold;
+
+}
+#removed-count{
+    color: green;
+    font-weight: bold;
+}
