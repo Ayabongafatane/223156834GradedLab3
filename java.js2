@@ -1,0 +1,60 @@
+// keeping trak of how many items have been removed.
+let removedCount = 0;
+
+// Updating the alternating background color for list items.
+function updateColors(){
+    let items = document.querySelectorAll("#list li");
+    items.forEach((li,index) => {
+        li.style.backgroundColor = (index % 2 === 0) ? "white" : "yellow";
+    
+    });
+}
+//Event handler for the Add button.
+document.getElementById("add").onclick = function(){
+    let input = document.getElementById("item");
+
+    //Splitting the input  into words,removing empty entries.
+    let words = input .value.trim().split(" ").filter(w => w.length > 0);
+
+    //Adding each word as a new list item.
+    words.forEach(word => {
+        let li = document.createElement("li");
+        li.textContent = word;
+        document.getElementById("list").appendChild(li);
+
+    });
+    //Updating the alternating colors after adding.
+    updateColors();
+
+    //clears the input field after adding.
+    input.value = "";
+};
+
+//Event handler for the Remove button
+document.getElementById("remove").onclick = function(){
+    let input = document.getElementById("item");
+    let wordToRemove = input.value.trim().toLowerCase();
+    let items = document.querySelectorAll("#list li");
+    let removeDiv =document.getElementById("removed");
+
+    //Loop through the list items to find the first match.
+    for(let i = 0; i< items.length; i++) {
+        if(items[i].textContent.toLowerCase() === wordToRemove) {
+            removeDiv.textContent = items[i].textContent;
+
+            items[i].remove();
+
+            // increasing the removed count and displaying it in green.
+            removedCount++;
+            document.getElementById("removed-count").textContent =removedCount + " item(s) removed";
+
+            break;
+        }
+    }
+    //Updating alternating colors after removal.
+    updateColors();
+
+    //Clears the input field after removing.
+    input.value = "";
+
+};
